@@ -31,10 +31,6 @@ module Leaflet
       if center
         output << "map.setView([#{center[:latlng][0]}, #{center[:latlng][1]}], #{center[:zoom]});"
       end
-      
-      if locate
-        output << "map.locate({setView: true, maxZoom: #{max_zoom}});"
-      end
 
       if markers
         markers.each_with_index do |marker, index|
@@ -102,6 +98,10 @@ module Leaflet
         output << "#{key.to_s.camelize(:lower)}: '#{value}',"
       end
       output << "}).addTo(map);"
+      
+      if locate
+        output << "map.locate({setView: true, maxZoom: #{max_zoom}});"
+      end
 
       output << "</script>"
       output.join("\n").html_safe
