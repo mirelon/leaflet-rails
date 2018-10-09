@@ -20,6 +20,7 @@ module Leaflet
       polylines = options.delete(:polylines)
       geojsons = options.delete(:geojsons)
       fitbounds = options.delete(:fitbounds)
+      locate = options.delete(:locate)
 
 
       output = []
@@ -29,6 +30,10 @@ module Leaflet
 
       if center
         output << "map.setView([#{center[:latlng][0]}, #{center[:latlng][1]}], #{center[:zoom]});"
+      end
+      
+      if locate
+        output << "map.locate({setView: true, maxZoom: #{max_zoom}});"
       end
 
       if markers
